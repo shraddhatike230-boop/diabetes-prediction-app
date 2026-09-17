@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-.,   # DARK MODE
+# DARK MODE
 dark_mode = st.sidebar.toggle("🌙 Dark Mode")
 
 if dark_mode:
