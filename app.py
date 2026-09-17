@@ -13,202 +13,120 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+.,   # DARK MODE
+dark_mode = st.sidebar.toggle("🌙 Dark Mode")
 
-# =========================================================
-# CUSTOM CSS
-# =========================================================
-st.markdown("""
-<style>
+if dark_mode:
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: #121212 !important;
+        color: white !important;
+    }
 
-/* ---------- APP BACKGROUND ---------- */
+    [data-testid="stHeader"] {
+        background: #121212 !important;
+    }
+
+    [data-testid="stAppViewContainer"] p,
+    [data-testid="stAppViewContainer"] label,
+    [data-testid="stAppViewContainer"] span {
+        color: #f5f5f5 !important;
+    }
+
+    .section-heading {
+        color: white !important;
+    }
+
+    .stMarkdown {
+        color: #f5f5f5 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+# =========================
+# THEME MODE
+# =========================
+
+dark_mode = st.toggle("🌙 Dark Mode", value=False)
+
+if dark_mode:
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: #111827 !important;
+    }
+
+    [data-testid="stHeader"] {
+        background: transparent !important;
+    }
+
+    .main {
+        background: #111827 !important;
+    }
+
+    [data-testid="stAppViewContainer"] p,
+    [data-testid="stAppViewContainer"] label,
+    [data-testid="stAppViewContainer"] span {
+        color: #E5E7EB !important;
+    }
+
+    [data-testid="stAppViewContainer"] h1,
+    [data-testid="stAppViewContainer"] h2,
+    [data-testid="stAppViewContainer"] h3 {
+        color: #FFFFFF !important;
+    }
+
+    [data-testid="stSidebar"] {
+        background: #171C2B !important;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #FFFFFF !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+else:
+    st.markdown("""
+    <style>
+    [data-testid="stAppViewContainer"] {
+        background: #F5F7FB !important;
+    }
+
+    [data-testid="stAppViewContainer"] p,
+    [data-testid="stAppViewContainer"] label,
+    [data-testid="stAppViewContainer"] span {
+        color: #374151 !important;
+    }
+
+    [data-testid="stAppViewContainer"] h1,
+    [data-testid="stAppViewContainer"] h2,
+    [data-testid="stAppViewContainer"] h3 {
+        color: #1F2937 !important;
+    }
 [data-testid="stAppViewContainer"] {
-    background: #f5f7fb;
+    color: #20233d    
+ /* FINAL TEXT VISIBILITY FIX */
+
+[data-testid="stAppViewContainer"] p,
+[data-testid="stAppViewContainer"] label,
+[data-testid="stAppViewContainer"] span,
+[data-testid="stAppViewContainer"] div {
+    color: #20233d !important;
 }
 
-[data-testid="stHeader"] {
-    background: transparent;
-}
-
-.block-container {
-    max-width: 1250px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-}
-
-/* ---------- SIDEBAR ---------- */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #171b3a, #292b5f);
-}
-
-[data-testid="stSidebar"] * {
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] div {
     color: white !important;
 }
 
-/* ---------- HERO ---------- */
-.hero {
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    padding: 38px 35px;
-    border-radius: 25px;
-    color: white;
-    margin-bottom: 28px;
-    box-shadow: 0 15px 35px rgba(79,70,229,0.22);
-}
-
-.hero-title {
-    font-size: 43px;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -1px;
-}
-
-.hero-subtitle {
-    font-size: 17px;
-    margin-top: 8px;
-    opacity: 0.9;
-}
-
-.hero-badge {
-    display: inline-block;
-    margin-top: 18px;
-    padding: 7px 15px;
-    border-radius: 30px;
-    background: rgba(255,255,255,0.16);
-    font-size: 13px;
-}
-
-/* ---------- SECTION ---------- */
-.section-heading {
-    font-size: 25px;
-    font-weight: 800;
-    color: #20233d;
-    margin-top: 25px;
-    margin-bottom: 15px;
-}
-
-/* ---------- MODEL CARDS ---------- */
-.info-card {
-    background: white;
-    border-radius: 18px;
-    padding: 20px;
-    border: 1px solid #e9eaf2;
-    box-shadow: 0 7px 20px rgba(20,25,50,0.06);
-    min-height: 125px;
-}
-
-.info-label {
-    color: #777b91;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.info-value {
-    color: #20233d;
-    font-size: 25px;
-    font-weight: 800;
-    margin-top: 10px;
-}
-
-.info-icon {
-    font-size: 25px;
-}
-
-/* ---------- INPUT BOX ---------- */
-.input-wrapper {
-    background: white;
-    border-radius: 20px;
-    padding: 8px 18px 18px 18px;
-    border: 1px solid #e8e9f0;
-    box-shadow: 0 7px 20px rgba(20,25,50,0.05);
-}
-
-/* ---------- BUTTON ---------- */
-.stButton > button {
-    width: 100%;
-    height: 55px;
-    border-radius: 14px;
-    border: none;
-    font-size: 17px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #4f46e5, #7c3aed);
-    color: white;
-    box-shadow: 0 8px 20px rgba(79,70,229,0.22);
-    transition: 0.2s;
-}
-
-.stButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(79,70,229,0.30);
-}
-
-/* ---------- RESULT ---------- */
-.result-high {
-    background: linear-gradient(135deg, #fff1f2, #ffe4e6);
-    border: 1px solid #fecdd3;
-    border-radius: 22px;
-    padding: 28px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.result-low {
-    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-    border: 1px solid #a7f3d0;
-    border-radius: 22px;
-    padding: 28px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.result-heading {
-    font-size: 30px;
-    font-weight: 850;
-}
-
-.result-prob {
-    font-size: 22px;
-    font-weight: 700;
-    margin-top: 8px;
-}
-
-/* ---------- RISK BOX ---------- */
-.risk-box {
-    background: white;
-    border-radius: 18px;
-    padding: 22px;
-    border: 1px solid #e8e9f0;
-    box-shadow: 0 7px 20px rgba(20,25,50,0.05);
-    margin-top: 18px;
-}
-
-.risk-title {
-    font-size: 19px;
-    font-weight: 800;
-    color: #20233d;
-}
-
-.risk-text {
-    color: #65697d;
-    line-height: 1.6;
-    margin-top: 8px;
-}
-
-/* ---------- FOOTER ---------- */
-.footer {
-    text-align: center;
-    margin-top: 45px;
-    padding: 25px;
-    color: #777b91;
-    border-top: 1px solid #dddfea;
-}
-
-.small-note {
-    color: #777b91;
-    font-size: 13px;
-}
-
-</style>
-""", unsafe_allow_html=True)
+.stButton button {
+    color: white !important;
+}   
+    </style>
+    """, unsafe_allow_html=True)
 
 # =========================================================
 # LOAD DATA
